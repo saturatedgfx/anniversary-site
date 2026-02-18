@@ -148,6 +148,7 @@ html, body {
 .screen--year {
   flex-direction: column;
   background: var(--bg-dark);
+  overflow: hidden;
 }
 
 .year-bg {
@@ -197,7 +198,72 @@ html, body {
   justify-content: center;
 }
 
-.photo-img {
+/* ===== PHOTO CAROUSEL ===== */
+.photo-carousel {
+  position: relative;
+  width: 100%;
+  height: 100%;
+}
+
+.photo-carousel .photo-img {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  opacity: 0;
+  transition: opacity 0.8s ease;
+  will-change: opacity, transform;
+}
+
+.photo-carousel .photo-img.active {
+  opacity: 1;
+}
+
+/* Dots */
+.photo-dots {
+  position: absolute;
+  bottom: 10px;
+  left: 50%;
+  transform: translateX(-50%);
+  display: flex;
+  gap: 6px;
+  z-index: 5;
+}
+
+.photo-dot {
+  width: 7px;
+  height: 7px;
+  border-radius: 50%;
+  background: rgba(255, 255, 255, 0.35);
+  cursor: pointer;
+  transition: all 0.3s ease;
+  border: 1px solid rgba(255, 255, 255, 0.15);
+}
+
+.photo-dot.active {
+  background: rgba(255, 255, 255, 0.9);
+  box-shadow: 0 0 6px rgba(255, 255, 255, 0.5);
+}
+
+/* Ken Burns */
+@keyframes ken-burns-1 {
+  0%   { transform: scale(1) translate(0, 0); }
+  100% { transform: scale(1.08) translate(-1.5%, -1%); }
+}
+
+@keyframes ken-burns-2 {
+  0%   { transform: scale(1.05) translate(1%, 0.5%); }
+  100% { transform: scale(1) translate(-0.5%, -1.5%); }
+}
+
+@keyframes ken-burns-3 {
+  0%   { transform: scale(1) translate(1%, 1%); }
+  100% { transform: scale(1.06) translate(-1%, 0.5%); }
+}
+
+/* Single-image fallback (no carousel) */
+.photo-frame > .photo-img {
   width: 100%;
   height: 100%;
   object-fit: cover;
@@ -214,9 +280,10 @@ html, body {
   letter-spacing: 0.2em;
   text-transform: uppercase;
   color: var(--text-muted);
+  z-index: 3;
 }
 
-.photo-img + .photo-placeholder-text {
+.photo-carousel ~ .photo-placeholder-text {
   display: none;
 }
 
@@ -244,6 +311,7 @@ html, body {
   color: var(--gold);
   display: block;
   margin-bottom: 0.6rem;
+  overflow: hidden;
 }
 
 .year-caption {
@@ -268,6 +336,34 @@ html, body {
   .year-message {
     font-size: 1rem;
   }
+}
+
+/* Year detail quote */
+.year-detail {
+  font-family: var(--font-serif);
+  font-size: 0.95rem;
+  font-style: italic;
+  font-weight: 300;
+  color: var(--gold-dim);
+  margin-top: 0.8rem;
+  line-height: 1.6;
+  max-width: 380px;
+  opacity: 0;
+}
+
+/* Year accent icons */
+.year-accent {
+  position: absolute;
+  z-index: 0;
+  pointer-events: none;
+}
+
+.year-accent-icon {
+  position: absolute;
+  font-size: 1.4rem;
+  opacity: 0;
+  will-change: transform, opacity;
+  color: rgba(212, 167, 69, 0.2);
 }
 
 /* ===== QUESTION SCREEN ===== */
@@ -336,7 +432,7 @@ html, body {
   box-shadow: 0 0 50px rgba(212, 167, 69, 0.5), 0 0 100px rgba(212, 167, 69, 0.2);
 }
 
-/* NO button */
+/* NO button — physics-based, no CSS transition */
 .btn-no {
   font-family: var(--font-sans);
   font-size: 0.85rem;
@@ -346,19 +442,13 @@ html, body {
   border: 1px solid rgba(112, 104, 88, 0.3);
   padding: 0.7rem 1.8rem;
   cursor: pointer;
-  transition: all 0.15s ease;
   position: relative;
+  will-change: transform;
 }
 
 .btn-no:hover {
   color: var(--text-secondary);
   border-color: rgba(112, 104, 88, 0.5);
-}
-
-.btn-no.evading {
-  position: fixed;
-  z-index: 100;
-  transition: all 0.2s cubic-bezier(0.34, 1.56, 0.64, 1);
 }
 
 /* Denial message */
