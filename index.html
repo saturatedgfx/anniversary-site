@@ -1,0 +1,175 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
+  <title>Our Story</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,300;1,400&family=Inter:wght@300;400&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+
+  <!-- ===== SCREEN 1: LANDING ===== -->
+  <section class="screen screen--landing active" id="landing">
+    <div class="particles" id="particles"></div>
+    <div class="landing-content">
+      <p class="landing-subtitle">Five Years of</p>
+      <h1 class="landing-title">Us</h1>
+      <button class="btn-begin" id="btn-begin">Tap to Begin</button>
+    </div>
+  </section>
+
+  <!-- ===== SCREEN 2-6: YEAR JOURNEY ===== -->
+  <section class="screen screen--year" id="year-1" data-year="1">
+    <div class="year-bg"></div>
+    <div class="year-content">
+      <div class="year-photo">
+        <div class="photo-frame">
+          <img src="img/year-1.jpg" alt="Year 1" class="photo-img" onerror="this.style.display='none'; this.parentElement.classList.add('placeholder')">
+          <div class="photo-placeholder-text">Year 1 Photo</div>
+        </div>
+      </div>
+      <div class="year-text">
+        <span class="year-label">Year One</span>
+        <h2 class="year-caption">The Beginning</h2>
+        <p class="year-message">Where it all started. Two people, one chance encounter, and a connection that changed everything.</p>
+      </div>
+    </div>
+  </section>
+
+  <section class="screen screen--year" id="year-2" data-year="2">
+    <div class="year-bg"></div>
+    <div class="year-content">
+      <div class="year-photo">
+        <div class="photo-frame">
+          <img src="img/year-2.jpg" alt="Year 2" class="photo-img" onerror="this.style.display='none'; this.parentElement.classList.add('placeholder')">
+          <div class="photo-placeholder-text">Year 2 Photo</div>
+        </div>
+      </div>
+      <div class="year-text">
+        <span class="year-label">Year Two</span>
+        <h2 class="year-caption">Building Together</h2>
+        <p class="year-message">Learning each other's worlds. Growing closer with every shared laugh, every late-night conversation.</p>
+      </div>
+    </div>
+  </section>
+
+  <section class="screen screen--year" id="year-3" data-year="3">
+    <div class="year-bg"></div>
+    <div class="year-content">
+      <div class="year-photo">
+        <div class="photo-frame">
+          <img src="img/year-3.jpg" alt="Year 3" class="photo-img" onerror="this.style.display='none'; this.parentElement.classList.add('placeholder')">
+          <div class="photo-placeholder-text">Year 3 Photo</div>
+        </div>
+      </div>
+      <div class="year-text">
+        <span class="year-label">Year Three</span>
+        <h2 class="year-caption">Our Rhythm</h2>
+        <p class="year-message">Finding our groove. The comfort of knowing someone truly sees you, and choosing each other every single day.</p>
+      </div>
+    </div>
+  </section>
+
+  <section class="screen screen--year" id="year-4" data-year="4">
+    <div class="year-bg"></div>
+    <div class="year-content">
+      <div class="year-photo">
+        <div class="photo-frame">
+          <img src="img/year-4.jpg" alt="Year 4" class="photo-img" onerror="this.style.display='none'; this.parentElement.classList.add('placeholder')">
+          <div class="photo-placeholder-text">Year 4 Photo</div>
+        </div>
+      </div>
+      <div class="year-text">
+        <span class="year-label">Year Four</span>
+        <h2 class="year-caption">Adventures</h2>
+        <p class="year-message">New cities, new memories. From Washington to Boston to Costa Rica — every trip better because you were there.</p>
+      </div>
+    </div>
+  </section>
+
+  <section class="screen screen--year" id="year-5" data-year="5">
+    <div class="year-bg"></div>
+    <div class="year-content">
+      <div class="year-photo">
+        <div class="photo-frame">
+          <img src="img/year-5.jpg" alt="Year 5" class="photo-img" onerror="this.style.display='none'; this.parentElement.classList.add('placeholder')">
+          <div class="photo-placeholder-text">Year 5 Photo</div>
+        </div>
+      </div>
+      <div class="year-text">
+        <span class="year-label">Year Five</span>
+        <h2 class="year-caption">Half a Decade</h2>
+        <p class="year-message">Five years. It sounds like a long time until you realize you'd do it all over again in a heartbeat.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===== SCREEN 7: THE QUESTION ===== -->
+  <section class="screen screen--question" id="question">
+    <div class="question-content">
+      <h2 class="question-title">So...</h2>
+      <p class="question-text">Will you be with me for 5+ more years?</p>
+      <div class="question-buttons">
+        <button class="btn-yes" id="btn-yes">YES</button>
+        <button class="btn-no" id="btn-no">no</button>
+      </div>
+      <div class="denial-message" id="denial-message"></div>
+    </div>
+    <canvas id="confetti-canvas"></canvas>
+  </section>
+
+  <!-- ===== SCREEN 8: RSVP REVEAL ===== -->
+  <section class="screen screen--rsvp" id="rsvp">
+    <div class="rsvp-card">
+      <div class="rsvp-ornament top"></div>
+      <p class="rsvp-prelude">Then let me take you somewhere special...</p>
+      <h2 class="rsvp-title">Anniversary Weekend</h2>
+      <p class="rsvp-date">March 1 &ndash; 2, 2026</p>
+      <div class="rsvp-divider"></div>
+      <div class="rsvp-details">
+        <div class="rsvp-detail">
+          <span class="rsvp-icon">&#9734;</span>
+          <div>
+            <strong>Hotel X Toronto</strong>
+            <p>Corner Studio King &bull; Lake &amp; Skyline Views</p>
+            <p class="rsvp-sub">Rooftop pool, Guerlain Spa, Valerie rooftop bar</p>
+          </div>
+        </div>
+        <div class="rsvp-detail">
+          <span class="rsvp-icon">&#9733;</span>
+          <div>
+            <strong>Dinner at 360</strong>
+            <p>CN Tower &bull; Saturday Evening</p>
+            <p class="rsvp-sub">The city at our feet, the stars above</p>
+          </div>
+        </div>
+      </div>
+      <div class="rsvp-divider"></div>
+      <p class="rsvp-closing">Here's to us, to five incredible years,<br>and to every year still to come.</p>
+      <p class="rsvp-sign">I love you.</p>
+      <div class="rsvp-ornament bottom"></div>
+    </div>
+  </section>
+
+  <!-- ===== NAVIGATION ARROWS ===== -->
+  <div class="nav-arrows" id="nav-arrows">
+    <button class="nav-arrow nav-arrow--prev" id="nav-prev" aria-label="Previous">&larr;</button>
+    <div class="nav-dots" id="nav-dots"></div>
+    <button class="nav-arrow nav-arrow--next" id="nav-next" aria-label="Next">&rarr;</button>
+  </div>
+
+  <!-- Progress indicator -->
+  <div class="progress-bar" id="progress-bar">
+    <div class="progress-fill" id="progress-fill"></div>
+  </div>
+
+  <!-- Scripts -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
+  <script src="js/confetti.js"></script>
+  <script src="js/evasive.js"></script>
+  <script src="js/main.js"></script>
+</body>
+</html>

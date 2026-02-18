@@ -1,0 +1,641 @@
+/* ============================================
+   ANNIVERSARY SITE - CINEMATIC DARK THEME
+   ============================================ */
+
+:root {
+  --bg-dark: #0a0a0f;
+  --bg-card: #111118;
+  --gold: #d4a745;
+  --gold-light: #f0d078;
+  --gold-dim: #a07830;
+  --warm-white: #f5f0e8;
+  --text-primary: #f5f0e8;
+  --text-secondary: #b0a898;
+  --text-muted: #706858;
+  --accent-glow: rgba(212, 167, 69, 0.15);
+  --font-serif: 'Cormorant Garamond', Georgia, serif;
+  --font-sans: 'Inter', -apple-system, sans-serif;
+  --transition-smooth: 0.6s cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+/* ===== RESET & BASE ===== */
+*, *::before, *::after {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+html, body {
+  height: 100%;
+  overflow: hidden;
+  background: var(--bg-dark);
+  color: var(--text-primary);
+  font-family: var(--font-sans);
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+/* ===== SCREEN SYSTEM ===== */
+.screen {
+  position: fixed;
+  inset: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  opacity: 0;
+  visibility: hidden;
+  transition: opacity 0.4s ease;
+  z-index: 1;
+}
+
+.screen.active {
+  opacity: 1;
+  visibility: visible;
+  z-index: 10;
+}
+
+/* ===== LANDING SCREEN ===== */
+.screen--landing {
+  flex-direction: column;
+  background: var(--bg-dark);
+}
+
+.particles {
+  position: absolute;
+  inset: 0;
+  overflow: hidden;
+  z-index: 0;
+}
+
+.particle {
+  position: absolute;
+  width: 2px;
+  height: 2px;
+  background: var(--gold);
+  border-radius: 50%;
+  opacity: 0;
+  animation: float-particle linear infinite;
+}
+
+@keyframes float-particle {
+  0% {
+    opacity: 0;
+    transform: translateY(0) scale(0.5);
+  }
+  10% {
+    opacity: 0.8;
+  }
+  90% {
+    opacity: 0.3;
+  }
+  100% {
+    opacity: 0;
+    transform: translateY(-100vh) scale(0);
+  }
+}
+
+.landing-content {
+  position: relative;
+  z-index: 1;
+  text-align: center;
+}
+
+.landing-subtitle {
+  font-family: var(--font-sans);
+  font-size: 0.85rem;
+  font-weight: 300;
+  letter-spacing: 0.35em;
+  text-transform: uppercase;
+  color: var(--gold);
+  margin-bottom: 0.5rem;
+  opacity: 0;
+}
+
+.landing-title {
+  font-family: var(--font-serif);
+  font-size: clamp(4rem, 15vw, 9rem);
+  font-weight: 300;
+  font-style: italic;
+  color: var(--text-primary);
+  line-height: 1;
+  margin-bottom: 2.5rem;
+  opacity: 0;
+  text-shadow: 0 0 60px rgba(212, 167, 69, 0.2);
+}
+
+.btn-begin {
+  font-family: var(--font-sans);
+  font-size: 0.8rem;
+  font-weight: 300;
+  letter-spacing: 0.3em;
+  text-transform: uppercase;
+  color: var(--gold);
+  background: transparent;
+  border: 1px solid var(--gold-dim);
+  padding: 0.9rem 2.5rem;
+  cursor: pointer;
+  transition: all 0.4s ease;
+  opacity: 0;
+}
+
+.btn-begin:hover {
+  background: rgba(212, 167, 69, 0.1);
+  border-color: var(--gold);
+  box-shadow: 0 0 30px rgba(212, 167, 69, 0.15);
+}
+
+/* ===== YEAR SCREENS ===== */
+.screen--year {
+  flex-direction: column;
+  background: var(--bg-dark);
+}
+
+.year-bg {
+  position: absolute;
+  inset: 0;
+  background: radial-gradient(ellipse at center, rgba(212, 167, 69, 0.03) 0%, transparent 70%);
+  z-index: 0;
+}
+
+.year-content {
+  position: relative;
+  z-index: 1;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 2rem;
+  padding: 2rem;
+  max-width: 600px;
+  width: 100%;
+}
+
+@media (min-width: 768px) {
+  .year-content {
+    flex-direction: row;
+    max-width: 900px;
+    gap: 3rem;
+  }
+}
+
+/* Photo frame */
+.year-photo {
+  flex-shrink: 0;
+}
+
+.photo-frame {
+  width: clamp(220px, 50vw, 340px);
+  height: clamp(280px, 60vw, 420px);
+  border: 1px solid rgba(212, 167, 69, 0.2);
+  overflow: hidden;
+  position: relative;
+  background: var(--bg-card);
+}
+
+.photo-frame.placeholder {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.photo-img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.photo-placeholder-text {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-family: var(--font-sans);
+  font-size: 0.75rem;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  color: var(--text-muted);
+}
+
+.photo-img + .photo-placeholder-text {
+  display: none;
+}
+
+.photo-frame.placeholder .photo-placeholder-text {
+  display: flex;
+}
+
+/* Year text */
+.year-text {
+  text-align: center;
+}
+
+@media (min-width: 768px) {
+  .year-text {
+    text-align: left;
+  }
+}
+
+.year-label {
+  font-family: var(--font-sans);
+  font-size: 0.7rem;
+  font-weight: 400;
+  letter-spacing: 0.4em;
+  text-transform: uppercase;
+  color: var(--gold);
+  display: block;
+  margin-bottom: 0.6rem;
+}
+
+.year-caption {
+  font-family: var(--font-serif);
+  font-size: clamp(2rem, 5vw, 3.2rem);
+  font-weight: 300;
+  color: var(--text-primary);
+  line-height: 1.15;
+  margin-bottom: 1rem;
+}
+
+.year-message {
+  font-family: var(--font-sans);
+  font-size: 0.95rem;
+  font-weight: 300;
+  line-height: 1.7;
+  color: var(--text-secondary);
+  max-width: 380px;
+}
+
+@media (min-width: 768px) {
+  .year-message {
+    font-size: 1rem;
+  }
+}
+
+/* ===== QUESTION SCREEN ===== */
+.screen--question {
+  flex-direction: column;
+  background: var(--bg-dark);
+}
+
+.question-content {
+  position: relative;
+  z-index: 2;
+  text-align: center;
+  padding: 2rem;
+}
+
+.question-title {
+  font-family: var(--font-serif);
+  font-size: clamp(2.5rem, 8vw, 5rem);
+  font-weight: 300;
+  font-style: italic;
+  color: var(--text-primary);
+  margin-bottom: 1rem;
+}
+
+.question-text {
+  font-family: var(--font-sans);
+  font-size: clamp(1rem, 3vw, 1.3rem);
+  font-weight: 300;
+  color: var(--text-secondary);
+  margin-bottom: 3rem;
+  letter-spacing: 0.02em;
+}
+
+.question-buttons {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 2rem;
+  position: relative;
+  min-height: 80px;
+}
+
+/* YES button */
+.btn-yes {
+  font-family: var(--font-serif);
+  font-size: 1.3rem;
+  font-weight: 600;
+  letter-spacing: 0.15em;
+  color: var(--bg-dark);
+  background: linear-gradient(135deg, var(--gold), var(--gold-light));
+  border: none;
+  padding: 1rem 3rem;
+  cursor: pointer;
+  transition: all 0.4s ease;
+  box-shadow: 0 0 30px rgba(212, 167, 69, 0.3), 0 0 60px rgba(212, 167, 69, 0.1);
+  animation: yes-pulse 2s ease-in-out infinite;
+}
+
+@keyframes yes-pulse {
+  0%, 100% { box-shadow: 0 0 30px rgba(212, 167, 69, 0.3), 0 0 60px rgba(212, 167, 69, 0.1); }
+  50% { box-shadow: 0 0 40px rgba(212, 167, 69, 0.5), 0 0 80px rgba(212, 167, 69, 0.2); }
+}
+
+.btn-yes:hover {
+  transform: scale(1.05);
+  box-shadow: 0 0 50px rgba(212, 167, 69, 0.5), 0 0 100px rgba(212, 167, 69, 0.2);
+}
+
+/* NO button */
+.btn-no {
+  font-family: var(--font-sans);
+  font-size: 0.85rem;
+  font-weight: 300;
+  color: var(--text-muted);
+  background: transparent;
+  border: 1px solid rgba(112, 104, 88, 0.3);
+  padding: 0.7rem 1.8rem;
+  cursor: pointer;
+  transition: all 0.15s ease;
+  position: relative;
+}
+
+.btn-no:hover {
+  color: var(--text-secondary);
+  border-color: rgba(112, 104, 88, 0.5);
+}
+
+.btn-no.evading {
+  position: fixed;
+  z-index: 100;
+  transition: all 0.2s cubic-bezier(0.34, 1.56, 0.64, 1);
+}
+
+/* Denial message */
+.denial-message {
+  margin-top: 1.5rem;
+  font-family: var(--font-sans);
+  font-size: 0.9rem;
+  color: var(--gold);
+  opacity: 0;
+  transition: opacity 0.3s ease;
+  min-height: 1.5rem;
+}
+
+.denial-message.visible {
+  opacity: 1;
+}
+
+/* Confetti canvas */
+#confetti-canvas {
+  position: fixed;
+  inset: 0;
+  z-index: 50;
+  pointer-events: none;
+}
+
+/* ===== RSVP SCREEN ===== */
+.screen--rsvp {
+  background: var(--bg-dark);
+  padding: 1.5rem;
+  overflow-y: auto;
+}
+
+.rsvp-card {
+  background: linear-gradient(160deg, #15151e 0%, #111118 50%, #15151e 100%);
+  border: 1px solid rgba(212, 167, 69, 0.2);
+  max-width: 520px;
+  width: 100%;
+  padding: clamp(2rem, 5vw, 3.5rem);
+  position: relative;
+  text-align: center;
+}
+
+.rsvp-ornament {
+  width: 60px;
+  height: 1px;
+  background: linear-gradient(90deg, transparent, var(--gold), transparent);
+  margin: 0 auto 2rem;
+}
+
+.rsvp-ornament.bottom {
+  margin: 2rem auto 0;
+}
+
+.rsvp-prelude {
+  font-family: var(--font-serif);
+  font-size: 1.1rem;
+  font-style: italic;
+  font-weight: 300;
+  color: var(--text-secondary);
+  margin-bottom: 1.5rem;
+}
+
+.rsvp-title {
+  font-family: var(--font-serif);
+  font-size: clamp(1.8rem, 5vw, 2.8rem);
+  font-weight: 300;
+  color: var(--gold-light);
+  margin-bottom: 0.3rem;
+}
+
+.rsvp-date {
+  font-family: var(--font-sans);
+  font-size: 0.85rem;
+  font-weight: 300;
+  letter-spacing: 0.3em;
+  text-transform: uppercase;
+  color: var(--text-secondary);
+  margin-bottom: 1.5rem;
+}
+
+.rsvp-divider {
+  width: 40%;
+  height: 1px;
+  background: rgba(212, 167, 69, 0.15);
+  margin: 1.5rem auto;
+}
+
+.rsvp-details {
+  display: flex;
+  flex-direction: column;
+  gap: 1.5rem;
+  text-align: left;
+}
+
+.rsvp-detail {
+  display: flex;
+  gap: 1rem;
+  align-items: flex-start;
+}
+
+.rsvp-icon {
+  font-size: 1.2rem;
+  color: var(--gold);
+  flex-shrink: 0;
+  margin-top: 0.15rem;
+}
+
+.rsvp-detail strong {
+  font-family: var(--font-serif);
+  font-size: 1.15rem;
+  font-weight: 400;
+  color: var(--text-primary);
+  display: block;
+  margin-bottom: 0.15rem;
+}
+
+.rsvp-detail p {
+  font-family: var(--font-sans);
+  font-size: 0.85rem;
+  font-weight: 300;
+  color: var(--text-secondary);
+  line-height: 1.5;
+}
+
+.rsvp-sub {
+  color: var(--text-muted) !important;
+  font-size: 0.8rem !important;
+  font-style: italic;
+}
+
+.rsvp-closing {
+  font-family: var(--font-serif);
+  font-size: 1.05rem;
+  font-weight: 300;
+  font-style: italic;
+  color: var(--text-secondary);
+  line-height: 1.7;
+  margin-top: 0.5rem;
+}
+
+.rsvp-sign {
+  font-family: var(--font-serif);
+  font-size: 1.3rem;
+  font-weight: 600;
+  color: var(--gold);
+  margin-top: 1.5rem;
+}
+
+/* ===== NAVIGATION ===== */
+.nav-arrows {
+  position: fixed;
+  bottom: 2rem;
+  left: 50%;
+  transform: translateX(-50%);
+  display: flex;
+  align-items: center;
+  gap: 1.5rem;
+  z-index: 30;
+  opacity: 0;
+  transition: opacity 0.4s ease;
+  pointer-events: none;
+}
+
+.nav-arrows.visible {
+  opacity: 1;
+  pointer-events: auto;
+}
+
+.nav-arrow {
+  width: 40px;
+  height: 40px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: transparent;
+  border: 1px solid rgba(212, 167, 69, 0.3);
+  color: var(--gold);
+  font-size: 1rem;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  border-radius: 50%;
+}
+
+.nav-arrow:hover {
+  background: rgba(212, 167, 69, 0.1);
+  border-color: var(--gold);
+}
+
+.nav-arrow:disabled {
+  opacity: 0.2;
+  cursor: default;
+}
+
+.nav-dots {
+  display: flex;
+  gap: 0.5rem;
+}
+
+.nav-dot {
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  background: rgba(212, 167, 69, 0.2);
+  transition: all 0.3s ease;
+  cursor: pointer;
+}
+
+.nav-dot.active {
+  background: var(--gold);
+  box-shadow: 0 0 8px rgba(212, 167, 69, 0.4);
+}
+
+/* Progress bar */
+.progress-bar {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 2px;
+  background: rgba(212, 167, 69, 0.1);
+  z-index: 30;
+  opacity: 0;
+  transition: opacity 0.4s ease;
+}
+
+.progress-bar.visible {
+  opacity: 1;
+}
+
+.progress-fill {
+  height: 100%;
+  background: linear-gradient(90deg, var(--gold-dim), var(--gold));
+  width: 0%;
+  transition: width 0.6s ease;
+}
+
+/* ===== SWIPE HINT (mobile) ===== */
+@media (max-width: 767px) {
+  .nav-arrows {
+    bottom: 1.5rem;
+  }
+
+  .nav-arrow {
+    width: 36px;
+    height: 36px;
+    font-size: 0.9rem;
+  }
+}
+
+/* ===== CELEBRATION OVERLAY ===== */
+.celebration-active .question-content {
+  animation: celebrate-glow 1s ease forwards;
+}
+
+@keyframes celebrate-glow {
+  0% { filter: brightness(1); }
+  50% { filter: brightness(1.3); }
+  100% { filter: brightness(1); }
+}
+
+/* ===== SPECIAL YEAR-5 GLOW ===== */
+#year-5 .year-bg {
+  background: radial-gradient(ellipse at center, rgba(212, 167, 69, 0.06) 0%, transparent 60%);
+}
+
+#year-5 .year-label {
+  color: var(--gold-light);
+}
+
+#year-5 .photo-frame {
+  border-color: rgba(212, 167, 69, 0.35);
+  box-shadow: 0 0 40px rgba(212, 167, 69, 0.1);
+}
+
+/* Screen transitions for GSAP */
+.screen .year-content > *,
+.screen .question-content > *,
+.screen .rsvp-card > * {
+  will-change: transform, opacity;
+}
