@@ -1,5 +1,6 @@
 /* ============================================
    ANNIVERSARY SITE - CINEMATIC DARK THEME
+   Three-Zone Scrollable Story Redesign
    ============================================ */
 
 :root {
@@ -25,9 +26,8 @@
   box-sizing: border-box;
 }
 
-html, body {
+html {
   height: 100%;
-  overflow: hidden;
   background: var(--bg-dark);
   color: var(--text-primary);
   font-family: var(--font-sans);
@@ -35,27 +35,115 @@ html, body {
   -moz-osx-font-smoothing: grayscale;
 }
 
-/* ===== SCREEN SYSTEM ===== */
-.screen {
-  position: fixed;
-  inset: 0;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  opacity: 0;
-  visibility: hidden;
-  transition: opacity 0.4s ease;
-  z-index: 1;
+body {
+  min-height: 100%;
+  background: var(--bg-dark);
 }
 
-.screen.active {
+/* ===== ZONE SYSTEM ===== */
+/* Body class controls scroll behavior */
+body.zone-a,
+body.zone-c {
+  overflow: hidden;
+  height: 100%;
+}
+
+body.zone-b {
+  overflow-y: auto;
+  overflow-x: hidden;
+}
+
+.zone {
+  display: none;
+}
+
+.zone.active {
+  display: flex;
+}
+
+/* Fixed full-screen zones */
+.zone--landing,
+.zone--question,
+.zone--rsvp,
+.zone--postcredits {
+  position: fixed;
+  inset: 0;
+  align-items: center;
+  justify-content: center;
+  z-index: 100;
+  opacity: 0;
+  transition: opacity 0.4s ease;
+}
+
+.zone--landing.active,
+.zone--question.active,
+.zone--rsvp.active,
+.zone--postcredits.active {
   opacity: 1;
-  visibility: visible;
-  z-index: 10;
+}
+
+/* Story zone is a normal flow container */
+.zone--story {
+  display: none;
+  flex-direction: column;
+  align-items: center;
+  position: relative;
+  z-index: 1;
+  padding: 0 1.5rem;
+  padding-top: 15vh;
+  padding-bottom: 40vh;
+}
+
+.zone--story.active {
+  display: flex;
+}
+
+/* ===== SCROLL PROGRESS BAR ===== */
+.scroll-progress {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 2px;
+  background: rgba(212, 167, 69, 0.1);
+  z-index: 200;
+  opacity: 0;
+  transition: opacity 0.4s ease;
+  pointer-events: none;
+}
+
+.scroll-progress.visible {
+  opacity: 1;
+}
+
+.scroll-progress-fill {
+  height: 100%;
+  background: linear-gradient(90deg, var(--gold-dim), var(--gold));
+  width: 0%;
+  will-change: width;
+  transition: none;
+}
+
+/* ===== STORY THREAD (decorative vertical line) ===== */
+.story-thread {
+  position: absolute;
+  top: 10vh;
+  bottom: 30vh;
+  left: 50%;
+  width: 1px;
+  background: linear-gradient(
+    to bottom,
+    transparent 0%,
+    rgba(212, 167, 69, 0.12) 10%,
+    rgba(212, 167, 69, 0.12) 90%,
+    transparent 100%
+  );
+  z-index: 0;
+  pointer-events: none;
 }
 
 /* ===== LANDING SCREEN ===== */
-.screen--landing {
+.zone--landing {
   flex-direction: column;
   background: var(--bg-dark);
 }
@@ -144,165 +232,82 @@ html, body {
   box-shadow: 0 0 30px rgba(212, 167, 69, 0.15);
 }
 
-/* ===== YEAR SCREENS ===== */
-.screen--year {
-  flex-direction: column;
-  background: var(--bg-dark);
-  overflow: hidden;
-}
-
-.year-bg {
-  position: absolute;
-  inset: 0;
-  background: radial-gradient(ellipse at center, rgba(212, 167, 69, 0.03) 0%, transparent 70%);
-  z-index: 0;
-}
-
-.year-content {
+/* ===== MOMENT SYSTEM ===== */
+.moment {
   position: relative;
   z-index: 1;
+  width: 100%;
+  max-width: 600px;
   display: flex;
   flex-direction: column;
   align-items: center;
-  gap: 2rem;
-  padding: 2rem;
-  max-width: 600px;
+  gap: 1rem;
+  margin-bottom: clamp(4rem, 10vh, 8rem);
+  opacity: 0;
+  transform: translateY(40px);
+  transition: opacity 0.8s ease, transform 0.8s ease;
+}
+
+.moment.in-view {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+/* Moment media container */
+.moment-media {
+  width: 100%;
+  border: 1px solid rgba(212, 167, 69, 0.2);
+  overflow: hidden;
+  background: var(--bg-card);
+  position: relative;
+}
+
+.moment-media picture {
+  display: block;
   width: 100%;
 }
 
-@media (min-width: 768px) {
-  .year-content {
-    flex-direction: row;
-    max-width: 900px;
-    gap: 3rem;
-  }
+.moment-media img {
+  display: block;
+  width: 100%;
+  height: auto;
+  object-fit: cover;
 }
 
-/* Photo frame */
-.year-photo {
-  flex-shrink: 0;
+/* Gallery: 2-col default */
+.moment-gallery {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 4px;
+  border: none;
+  background: transparent;
 }
 
-.photo-frame {
-  width: clamp(220px, 50vw, 340px);
-  height: clamp(280px, 60vw, 420px);
+.moment-gallery picture,
+.moment-gallery .moment-media--video {
   border: 1px solid rgba(212, 167, 69, 0.2);
   overflow: hidden;
-  position: relative;
   background: var(--bg-card);
 }
 
-.photo-frame.placeholder {
-  display: flex;
-  align-items: center;
-  justify-content: center;
+/* 3-col galleries */
+.moment-gallery--three {
+  grid-template-columns: 1fr 1fr 1fr;
 }
 
-/* ===== PHOTO CAROUSEL ===== */
-.photo-carousel {
-  position: relative;
-  width: 100%;
-  height: 100%;
+/* Reaction series: 3-col */
+.moment-gallery--reaction {
+  grid-template-columns: 1fr 1fr 1fr;
 }
 
-.photo-carousel .photo-img {
-  position: absolute;
-  inset: 0;
-  width: 100%;
-  height: 100%;
-  object-fit: cover;
-  opacity: 0;
-  transition: opacity 0.8s ease;
-  will-change: opacity, transform;
+/* Costa Rica 4-photo grid: 2x2 */
+.moment-gallery picture:nth-child(n+5),
+.moment-gallery .moment-media--video {
+  /* Videos in gallery get their own row */
 }
 
-.photo-carousel .photo-img.active {
-  opacity: 1;
-}
-
-/* Dots */
-.photo-dots {
-  position: absolute;
-  bottom: 10px;
-  left: 50%;
-  transform: translateX(-50%);
-  display: flex;
-  gap: 6px;
-  z-index: 5;
-}
-
-.photo-dot {
-  width: 7px;
-  height: 7px;
-  border-radius: 50%;
-  background: rgba(255, 255, 255, 0.35);
-  cursor: pointer;
-  transition: all 0.3s ease;
-  border: 1px solid rgba(255, 255, 255, 0.15);
-}
-
-.photo-dot.active {
-  background: rgba(255, 255, 255, 0.9);
-  box-shadow: 0 0 6px rgba(255, 255, 255, 0.5);
-}
-
-/* Ken Burns */
-@keyframes ken-burns-1 {
-  0%   { transform: scale(1) translate(0, 0); }
-  100% { transform: scale(1.08) translate(-1.5%, -1%); }
-}
-
-@keyframes ken-burns-2 {
-  0%   { transform: scale(1.05) translate(1%, 0.5%); }
-  100% { transform: scale(1) translate(-0.5%, -1.5%); }
-}
-
-@keyframes ken-burns-3 {
-  0%   { transform: scale(1) translate(1%, 1%); }
-  100% { transform: scale(1.06) translate(-1%, 0.5%); }
-}
-
-/* Single-image fallback (no carousel) */
-.photo-frame > .photo-img {
-  width: 100%;
-  height: 100%;
-  object-fit: cover;
-}
-
-.photo-placeholder-text {
-  position: absolute;
-  inset: 0;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  font-family: var(--font-sans);
-  font-size: 0.75rem;
-  letter-spacing: 0.2em;
-  text-transform: uppercase;
-  color: var(--text-muted);
-  z-index: 3;
-}
-
-.photo-carousel ~ .photo-placeholder-text {
-  display: none;
-}
-
-.photo-frame.placeholder .photo-placeholder-text {
-  display: flex;
-}
-
-/* Year text */
-.year-text {
-  text-align: center;
-}
-
-@media (min-width: 768px) {
-  .year-text {
-    text-align: left;
-  }
-}
-
-.year-label {
+/* Moment labels */
+.moment-label {
   font-family: var(--font-sans);
   font-size: 0.7rem;
   font-weight: 400;
@@ -310,64 +315,127 @@ html, body {
   text-transform: uppercase;
   color: var(--gold);
   display: block;
-  margin-bottom: 0.6rem;
+  text-align: center;
+}
+
+/* Moment captions */
+.moment-caption {
+  font-family: var(--font-serif);
+  font-size: clamp(0.95rem, 2.5vw, 1.15rem);
+  font-style: italic;
+  font-weight: 300;
+  color: var(--text-secondary);
+  line-height: 1.7;
+  text-align: center;
+  max-width: 520px;
+}
+
+/* Empty captions */
+.moment-caption:empty {
+  display: none;
+}
+
+/* ===== VIDEO MOMENTS ===== */
+.moment-media--video {
+  position: relative;
+  background: var(--bg-card);
+  border: 1px solid rgba(212, 167, 69, 0.2);
   overflow: hidden;
 }
 
-.year-caption {
-  font-family: var(--font-serif);
-  font-size: clamp(2rem, 5vw, 3.2rem);
-  font-weight: 300;
-  color: var(--text-primary);
-  line-height: 1.15;
-  margin-bottom: 1rem;
+.moment-media--video video {
+  display: block;
+  width: 100%;
+  height: auto;
+  background: #000;
 }
 
-.year-message {
-  font-family: var(--font-sans);
-  font-size: 0.95rem;
-  font-weight: 300;
-  line-height: 1.7;
-  color: var(--text-secondary);
-  max-width: 380px;
-}
-
-@media (min-width: 768px) {
-  .year-message {
-    font-size: 1rem;
-  }
-}
-
-/* Year detail quote */
-.year-detail {
-  font-family: var(--font-serif);
-  font-size: 0.95rem;
-  font-style: italic;
-  font-weight: 300;
-  color: var(--gold-dim);
-  margin-top: 0.8rem;
-  line-height: 1.6;
-  max-width: 380px;
-  opacity: 0;
-}
-
-/* Year accent icons */
-.year-accent {
+.video-play-btn {
   position: absolute;
-  z-index: 0;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 56px;
+  height: 56px;
+  border-radius: 50%;
+  background: rgba(212, 167, 69, 0.85);
+  border: none;
+  color: var(--bg-dark);
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: all 0.3s ease;
+  z-index: 5;
+}
+
+.video-play-btn svg {
+  width: 20px;
+  height: 20px;
+  margin-left: 2px;
+}
+
+.video-play-btn:hover {
+  background: var(--gold-light);
+  transform: translate(-50%, -50%) scale(1.1);
+}
+
+.video-play-btn.hidden {
+  opacity: 0;
   pointer-events: none;
 }
 
-.year-accent-icon {
-  position: absolute;
-  font-size: 1.4rem;
-  opacity: 0;
-  will-change: transform, opacity;
-  color: rgba(212, 167, 69, 0.2);
+/* ===== AVIANCA STORY TEXT CARD ===== */
+.moment--story-text .moment-story-card {
+  background: linear-gradient(160deg, #15151e 0%, #111118 50%, #15151e 100%);
+  border: 1px solid rgba(212, 167, 69, 0.15);
+  padding: clamp(1.5rem, 4vw, 2.5rem);
+  max-height: 400px;
+  overflow-y: auto;
+  -webkit-overflow-scrolling: touch;
+}
+
+.moment--story-text .moment-story-card p {
+  font-family: var(--font-sans);
+  font-size: clamp(0.85rem, 2vw, 0.95rem);
+  font-weight: 300;
+  color: var(--text-secondary);
+  line-height: 1.8;
+  margin-bottom: 1rem;
+}
+
+.moment--story-text .moment-story-card p:last-child {
+  margin-bottom: 0;
+}
+
+/* Custom scrollbar for story card */
+.moment-story-card::-webkit-scrollbar {
+  width: 4px;
+}
+
+.moment-story-card::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+.moment-story-card::-webkit-scrollbar-thumb {
+  background: rgba(212, 167, 69, 0.3);
+  border-radius: 2px;
+}
+
+/* ===== SURPRISE MOMENT ===== */
+.moment--surprise .moment-label {
+  font-size: 0.9rem;
+  color: var(--gold-light);
+}
+
+.moment--surprise .moment-caption {
+  font-size: clamp(1.1rem, 3vw, 1.4rem);
+  color: var(--gold);
+  font-weight: 400;
 }
 
 /* ===== QUESTION SCREEN ===== */
-.screen--question {
+.zone--question {
   flex-direction: column;
   background: var(--bg-dark);
 }
@@ -432,7 +500,7 @@ html, body {
   box-shadow: 0 0 50px rgba(212, 167, 69, 0.5), 0 0 100px rgba(212, 167, 69, 0.2);
 }
 
-/* NO button — physics-based, no CSS transition */
+/* NO button */
 .btn-no {
   font-family: var(--font-sans);
   font-size: 0.85rem;
@@ -470,15 +538,28 @@ html, body {
 #confetti-canvas {
   position: fixed;
   inset: 0;
-  z-index: 50;
+  z-index: 150;
   pointer-events: none;
 }
 
+/* Celebration overlay */
+.celebration-active .question-content {
+  animation: celebrate-glow 1s ease forwards;
+}
+
+@keyframes celebrate-glow {
+  0% { filter: brightness(1); }
+  50% { filter: brightness(1.3); }
+  100% { filter: brightness(1); }
+}
+
 /* ===== RSVP SCREEN ===== */
-.screen--rsvp {
+.zone--rsvp {
   background: var(--bg-dark);
   padding: 1.5rem;
   overflow-y: auto;
+  flex-direction: column;
+  gap: 2rem;
 }
 
 .rsvp-card {
@@ -597,135 +678,130 @@ html, body {
   margin-top: 1.5rem;
 }
 
-/* ===== NAVIGATION ===== */
-.nav-arrows {
-  position: fixed;
-  bottom: 2rem;
-  left: 50%;
-  transform: translateX(-50%);
-  display: flex;
-  align-items: center;
-  gap: 1.5rem;
-  z-index: 30;
+/* Post-credits hint button */
+.postcredits-hint {
+  font-family: var(--font-serif);
+  font-size: 1rem;
+  font-style: italic;
+  font-weight: 300;
+  color: var(--gold-dim);
+  background: transparent;
+  border: 1px solid rgba(212, 167, 69, 0.15);
+  padding: 0.8rem 2rem;
+  cursor: pointer;
+  transition: all 0.4s ease;
   opacity: 0;
-  transition: opacity 0.4s ease;
   pointer-events: none;
+  margin-top: 1rem;
 }
 
-.nav-arrows.visible {
+.postcredits-hint.visible {
   opacity: 1;
   pointer-events: auto;
+  animation: hint-pulse 3s ease-in-out infinite;
 }
 
-.nav-arrow {
-  width: 40px;
-  height: 40px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  background: transparent;
-  border: 1px solid rgba(212, 167, 69, 0.3);
+@keyframes hint-pulse {
+  0%, 100% { border-color: rgba(212, 167, 69, 0.15); }
+  50% { border-color: rgba(212, 167, 69, 0.4); }
+}
+
+.postcredits-hint:hover {
   color: var(--gold);
-  font-size: 1rem;
-  cursor: pointer;
-  transition: all 0.3s ease;
-  border-radius: 50%;
-}
-
-.nav-arrow:hover {
-  background: rgba(212, 167, 69, 0.1);
   border-color: var(--gold);
+  background: rgba(212, 167, 69, 0.05);
 }
 
-.nav-arrow:disabled {
-  opacity: 0.2;
-  cursor: default;
+/* ===== POST-CREDITS SCREEN ===== */
+.zone--postcredits {
+  flex-direction: column;
+  background: var(--bg-dark);
 }
 
-.nav-dots {
-  display: flex;
-  gap: 0.5rem;
+.postcredits-content {
+  text-align: center;
+  width: 100%;
+  max-width: 640px;
+  padding: 2rem;
 }
 
-.nav-dot {
-  width: 6px;
-  height: 6px;
-  border-radius: 50%;
-  background: rgba(212, 167, 69, 0.2);
-  transition: all 0.3s ease;
-  cursor: pointer;
-}
-
-.nav-dot.active {
-  background: var(--gold);
-  box-shadow: 0 0 8px rgba(212, 167, 69, 0.4);
-}
-
-/* Progress bar */
-.progress-bar {
-  position: fixed;
-  top: 0;
-  left: 0;
-  right: 0;
-  height: 2px;
-  background: rgba(212, 167, 69, 0.1);
-  z-index: 30;
+.postcredits-label {
+  font-family: var(--font-sans);
+  font-size: 0.75rem;
+  font-weight: 300;
+  letter-spacing: 0.4em;
+  text-transform: uppercase;
+  color: var(--gold-dim);
+  margin-bottom: 1.5rem;
   opacity: 0;
-  transition: opacity 0.4s ease;
 }
 
-.progress-bar.visible {
-  opacity: 1;
+.postcredits-player {
+  width: 100%;
+  border: 1px solid rgba(212, 167, 69, 0.2);
+  overflow: hidden;
+  background: #000;
+  opacity: 0;
 }
 
-.progress-fill {
-  height: 100%;
-  background: linear-gradient(90deg, var(--gold-dim), var(--gold));
-  width: 0%;
-  transition: width 0.6s ease;
+.postcredits-player video {
+  display: block;
+  width: 100%;
+  height: auto;
 }
 
-/* ===== SWIPE HINT (mobile) ===== */
-@media (max-width: 767px) {
-  .nav-arrows {
-    bottom: 1.5rem;
-  }
-
-  .nav-arrow {
-    width: 36px;
-    height: 36px;
-    font-size: 0.9rem;
-  }
-}
-
-/* ===== CELEBRATION OVERLAY ===== */
-.celebration-active .question-content {
-  animation: celebrate-glow 1s ease forwards;
-}
-
-@keyframes celebrate-glow {
-  0% { filter: brightness(1); }
-  50% { filter: brightness(1.3); }
-  100% { filter: brightness(1); }
-}
-
-/* ===== SPECIAL YEAR-5 GLOW ===== */
-#year-5 .year-bg {
-  background: radial-gradient(ellipse at center, rgba(212, 167, 69, 0.06) 0%, transparent 60%);
-}
-
-#year-5 .year-label {
-  color: var(--gold-light);
-}
-
-#year-5 .photo-frame {
-  border-color: rgba(212, 167, 69, 0.35);
-  box-shadow: 0 0 40px rgba(212, 167, 69, 0.1);
-}
-
-/* Screen transitions for GSAP */
-.screen .year-content > *,
-.screen .question-content > *,
-.screen .rsvp-card > * {
+/* ===== GSAP WILL-CHANGE ===== */
+.zone .question-content > *,
+.zone .rsvp-card > *,
+.zone .postcredits-content > * {
   will-change: transform, opacity;
+}
+
+/* ===== MOBILE RESPONSIVE ===== */
+@media (max-width: 600px) {
+  .moment {
+    max-width: 100%;
+  }
+
+  .moment-gallery--three,
+  .moment-gallery--reaction {
+    grid-template-columns: 1fr 1fr 1fr;
+    gap: 2px;
+  }
+
+  .moment-gallery {
+    gap: 2px;
+  }
+
+  .video-play-btn {
+    width: 44px;
+    height: 44px;
+  }
+
+  .video-play-btn svg {
+    width: 16px;
+    height: 16px;
+  }
+
+  .moment--story-text .moment-story-card {
+    max-height: 300px;
+  }
+
+  .zone--story {
+    padding: 0 1rem;
+    padding-top: 10vh;
+    padding-bottom: 30vh;
+  }
+}
+
+@media (min-width: 601px) and (max-width: 900px) {
+  .moment {
+    max-width: 540px;
+  }
+}
+
+/* ===== STORY END SENTINEL ===== */
+#story-end {
+  height: 1px;
+  width: 100%;
 }

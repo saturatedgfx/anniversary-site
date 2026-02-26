@@ -9,10 +9,15 @@
   <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,300;1,400&family=Inter:wght@300;400&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="css/style.css">
 </head>
-<body>
+<body class="zone-a">
 
-  <!-- ===== SCREEN 1: LANDING ===== -->
-  <section class="screen screen--landing active" id="landing">
+  <!-- Scroll progress bar -->
+  <div class="scroll-progress" id="scroll-progress">
+    <div class="scroll-progress-fill" id="scroll-progress-fill"></div>
+  </div>
+
+  <!-- ===== ZONE A: LANDING ===== -->
+  <section class="zone zone--landing active" id="landing">
     <div class="particles" id="particles"></div>
     <div class="landing-content">
       <p class="landing-subtitle">Five Years of</p>
@@ -21,129 +26,512 @@
     </div>
   </section>
 
-  <!-- ===== SCREEN 2-6: YEAR JOURNEY ===== -->
-  <section class="screen screen--year" id="year-1" data-year="1">
-    <div class="year-bg"></div>
-    <div class="year-accent" aria-hidden="true"></div>
-    <div class="year-content">
-      <div class="year-photo">
-        <div class="photo-frame">
-          <div class="photo-carousel">
-            <img src="img/year-1-a.jpg" alt="Year 1" class="photo-img active" onerror="this.style.display='none'">
-            <img src="img/year-1-b.jpg" alt="Year 1" class="photo-img" onerror="this.style.display='none'">
-            <img src="img/year-1-c.jpg" alt="Year 1" class="photo-img" onerror="this.style.display='none'">
-          </div>
-          <div class="photo-dots"></div>
-          <div class="photo-placeholder-text">Year 1 Photos</div>
+  <!-- ===== ZONE B: SCROLLABLE STORY ===== -->
+  <main class="zone zone--story" id="story">
+    <div class="story-thread" aria-hidden="true"></div>
+
+    <!-- Moment 1: The Beginning -->
+    <section class="moment" data-moment="1">
+      <div class="moment-media">
+        <picture>
+          <source srcset="media-web/photos/the-beginning.webp" type="image/webp">
+          <img src="media-web/photos/the-beginning.jpg" alt="The very beginning" loading="lazy">
+        </picture>
+      </div>
+      <span class="moment-label">The Beginning</span>
+      <p class="moment-caption">The very beginning.</p>
+    </section>
+
+    <!-- Moment 2: Birthday Videos -->
+    <section class="moment" data-moment="2">
+      <div class="moment-media">
+        <picture>
+          <source srcset="media-web/photos/birthday-videos.webp" type="image/webp">
+          <img src="media-web/photos/birthday-videos.jpg" alt="Birthday video takes" loading="lazy">
+        </picture>
+      </div>
+      <span class="moment-label">The Beginnings</span>
+      <p class="moment-caption">Screenshot of the birthday video I made for you. All those takes to get it right.</p>
+    </section>
+
+    <!-- Moment 3: Early Days -->
+    <section class="moment" data-moment="3">
+      <div class="moment-media">
+        <picture>
+          <source srcset="media-web/photos/early-days.webp" type="image/webp">
+          <img src="media-web/photos/early-days.jpg" alt="Early in the relationship" loading="lazy">
+        </picture>
+      </div>
+      <span class="moment-label">Early Days</span>
+      <p class="moment-caption">Early in the relationship.</p>
+    </section>
+
+    <!-- Moment 4: The Big Reveal -->
+    <section class="moment" data-moment="4">
+      <div class="moment-media">
+        <picture>
+          <source srcset="media-web/photos/big-reveal.webp" type="image/webp">
+          <img src="media-web/photos/big-reveal.jpg" alt="The big hair reveal" loading="lazy">
+        </picture>
+      </div>
+      <span class="moment-label">The Big Reveal</span>
+      <p class="moment-caption">When I cut my hair and completely transformed my look &mdash; you've been with me throughout every step of the way. Even when I cut my hair off for the Q Arms interview. To this day I remember when I revealed it to you &mdash; utter shock. "Did I keep the dreads?" "No." We were just looking at each other and you were completely awestruck.</p>
+    </section>
+
+    <!-- Moment 5: Toronto Adventures -->
+    <section class="moment" data-moment="5">
+      <div class="moment-media">
+        <picture>
+          <source srcset="media-web/photos/toronto-canoeing.webp" type="image/webp">
+          <img src="media-web/photos/toronto-canoeing.jpg" alt="Canoeing on the river" loading="lazy">
+        </picture>
+      </div>
+      <span class="moment-label">Toronto Adventures</span>
+      <p class="moment-caption">Canoeing on the river.</p>
+    </section>
+
+    <!-- Moment 6: Before Us -->
+    <section class="moment" data-moment="6">
+      <div class="moment-media moment-gallery">
+        <picture>
+          <source srcset="media-web/photos/before-us-1.webp" type="image/webp">
+          <img src="media-web/photos/before-us-1.jpg" alt="First images" loading="lazy">
+        </picture>
+        <picture>
+          <source srcset="media-web/photos/before-us-2.webp" type="image/webp">
+          <img src="media-web/photos/before-us-2.jpg" alt="High school memories" loading="lazy">
+        </picture>
+      </div>
+      <span class="moment-label">Before Us</span>
+      <p class="moment-caption">High school memories, first year at Queen's.</p>
+    </section>
+
+    <!-- Moment 7: Where It Started -->
+    <section class="moment" data-moment="7">
+      <div class="moment-media">
+        <picture>
+          <source srcset="media-web/photos/where-it-started.webp" type="image/webp">
+          <img src="media-web/photos/where-it-started.jpg" alt="One of the earliest photos of Cheyan" loading="lazy">
+        </picture>
+      </div>
+      <span class="moment-label">Where It Started</span>
+      <p class="moment-caption">One of the earliest photos I had of you... it makes me think of the classes we had together where we'd sit in the back, really not knowing how we'd get into a five-year relationship at this point. But slowly becoming friends from having similar interests. The first talk we had was about shoes &mdash; I was asking about Jordan 1's and I think the Mochas, you either liked them or said it was too basic. I just remember thinking, I really wanted to get the Mochas because I was thinking up ways to talk to you more.</p>
+    </section>
+
+    <!-- Moment 8: After School -->
+    <section class="moment" data-moment="8">
+      <div class="moment-media">
+        <picture>
+          <source srcset="media-web/photos/after-school.webp" type="image/webp">
+          <img src="media-web/photos/after-school.jpg" alt="After school tutoring" loading="lazy">
+        </picture>
+      </div>
+      <span class="moment-label">After School</span>
+      <p class="moment-caption">Funny tutoring moments.</p>
+    </section>
+
+    <!-- Moment 9: Washington -->
+    <section class="moment" data-moment="9">
+      <div class="moment-media moment-gallery">
+        <picture>
+          <source srcset="media-web/photos/washington-1.webp" type="image/webp">
+          <img src="media-web/photos/washington-1.jpg" alt="Airport pickup" loading="lazy">
+        </picture>
+        <picture>
+          <source srcset="media-web/photos/washington-2.webp" type="image/webp">
+          <img src="media-web/photos/washington-2.jpg" alt="Exploring the city" loading="lazy">
+        </picture>
+      </div>
+      <span class="moment-label">Washington</span>
+      <p class="moment-caption">Airport pickup, the train, exploring the city together.</p>
+    </section>
+
+    <!-- Moment 10: Always Happy -->
+    <section class="moment" data-moment="10">
+      <div class="moment-media">
+        <picture>
+          <source srcset="media-web/photos/always-happy.webp" type="image/webp">
+          <img src="media-web/photos/always-happy.jpg" alt="Christmas time together" loading="lazy">
+        </picture>
+      </div>
+      <span class="moment-label">Always Happy</span>
+      <p class="moment-caption">Always so happy when I'm with you.</p>
+    </section>
+
+    <!-- Moment 11: Style Twins -->
+    <section class="moment" data-moment="11">
+      <div class="moment-media moment-gallery">
+        <picture>
+          <source srcset="media-web/photos/style-twins-1.webp" type="image/webp">
+          <img src="media-web/photos/style-twins-1.jpg" alt="Matching outfits" loading="lazy">
+        </picture>
+        <picture>
+          <source srcset="media-web/photos/style-twins-2.webp" type="image/webp">
+          <img src="media-web/photos/style-twins-2.jpg" alt="Similar jackets" loading="lazy">
+        </picture>
+      </div>
+      <span class="moment-label">Style Twins</span>
+      <p class="moment-caption">You're my mini me.</p>
+    </section>
+
+    <!-- Moment 12: Princess / Formal -->
+    <section class="moment" data-moment="12">
+      <div class="moment-media moment-gallery moment-gallery--three">
+        <picture>
+          <source srcset="media-web/photos/princess-1.webp" type="image/webp">
+          <img src="media-web/photos/princess-1.jpg" alt="Prom" loading="lazy">
+        </picture>
+        <picture>
+          <source srcset="media-web/photos/princess-2.webp" type="image/webp">
+          <img src="media-web/photos/princess-2.jpg" alt="Med signs formal" loading="lazy">
+        </picture>
+        <picture>
+          <source srcset="media-web/photos/princess-3.webp" type="image/webp">
+          <img src="media-web/photos/princess-3.jpg" alt="Dressed up together" loading="lazy">
+        </picture>
+      </div>
+      <span class="moment-label">Princess</span>
+      <p class="moment-caption">Dressed up together. Prom, formal &mdash; always looking like a million.</p>
+    </section>
+
+    <!-- Moment 13: Bowling Night -->
+    <section class="moment moment--video" data-moment="13">
+      <div class="moment-media">
+        <picture>
+          <source srcset="media-web/photos/bowling.webp" type="image/webp">
+          <img src="media-web/photos/bowling.jpg" alt="Bowling night" loading="lazy">
+        </picture>
+      </div>
+      <div class="moment-media moment-media--video">
+        <video data-src="media-web/videos/bowling.mp4" poster="media-web/videos/bowling-poster.jpg" muted playsinline preload="none"></video>
+        <button class="video-play-btn" aria-label="Play video">
+          <svg viewBox="0 0 24 24" fill="currentColor"><polygon points="5,3 19,12 5,21"/></svg>
+        </button>
+      </div>
+      <span class="moment-label">Bowling Night</span>
+      <p class="moment-caption">Remember... she was destroying me.</p>
+    </section>
+
+    <!-- Moment 14: Golf Day -->
+    <section class="moment" data-moment="14">
+      <div class="moment-media">
+        <picture>
+          <source srcset="media-web/photos/golf-day.webp" type="image/webp">
+          <img src="media-web/photos/golf-day.jpg" alt="Golf day" loading="lazy">
+        </picture>
+      </div>
+      <span class="moment-label">Golf Day</span>
+      <p class="moment-caption">Almost killed someone.</p>
+    </section>
+
+    <!-- Moment 15: Study Buddies -->
+    <section class="moment" data-moment="15">
+      <div class="moment-media moment-gallery">
+        <picture>
+          <source srcset="media-web/photos/study-buddies-1.webp" type="image/webp">
+          <img src="media-web/photos/study-buddies-1.jpg" alt="Studying together" loading="lazy">
+        </picture>
+        <picture>
+          <source srcset="media-web/photos/study-buddies-2.webp" type="image/webp">
+          <img src="media-web/photos/study-buddies-2.jpg" alt="Her with his glasses" loading="lazy">
+        </picture>
+      </div>
+      <span class="moment-label">Study Buddies</span>
+      <p class="moment-caption">Mini me with my glasses.</p>
+    </section>
+
+    <!-- Moment 16: Bar Crawl -->
+    <section class="moment moment--video" data-moment="16">
+      <div class="moment-media">
+        <picture>
+          <source srcset="media-web/photos/bar-crawl.webp" type="image/webp">
+          <img src="media-web/photos/bar-crawl.jpg" alt="Bar crawl" loading="lazy">
+        </picture>
+      </div>
+      <div class="moment-media moment-media--video">
+        <video data-src="media-web/videos/bar-crawl.mp4" poster="media-web/videos/bar-crawl-poster.jpg" muted playsinline preload="none"></video>
+        <button class="video-play-btn" aria-label="Play video">
+          <svg viewBox="0 0 24 24" fill="currentColor"><polygon points="5,3 19,12 5,21"/></svg>
+        </button>
+      </div>
+      <span class="moment-label">Bar Crawl</span>
+      <p class="moment-caption">So fun.</p>
+    </section>
+
+    <!-- Moment 17: Skiing -->
+    <section class="moment" data-moment="17">
+      <div class="moment-media">
+        <picture>
+          <source srcset="media-web/photos/skiing.webp" type="image/webp">
+          <img src="media-web/photos/skiing.jpg" alt="Snowboarding" loading="lazy">
+        </picture>
+      </div>
+      <span class="moment-label">Skiing</span>
+      <p class="moment-caption">Broke my legs like 30 times.</p>
+    </section>
+
+    <!-- Moment 18: Pottery -->
+    <section class="moment" data-moment="18">
+      <div class="moment-media moment-gallery moment-gallery--three">
+        <picture>
+          <source srcset="media-web/photos/pottery-1.webp" type="image/webp">
+          <img src="media-web/photos/pottery-1.jpg" alt="Pottery class" loading="lazy">
+        </picture>
+        <picture>
+          <source srcset="media-web/photos/pottery-2.webp" type="image/webp">
+          <img src="media-web/photos/pottery-2.jpg" alt="Pottery results" loading="lazy">
+        </picture>
+        <picture>
+          <source srcset="media-web/photos/pottery-3.webp" type="image/webp">
+          <img src="media-web/photos/pottery-3.jpg" alt="Shush about the bowls" loading="lazy">
+        </picture>
+      </div>
+      <span class="moment-label">Pottery</span>
+      <p class="moment-caption">It's about the effort, the journey. Shush &mdash; forget about these bowls.</p>
+    </section>
+
+    <!-- Moment 19: Your Support -->
+    <section class="moment" data-moment="19">
+      <div class="moment-media">
+        <picture>
+          <source srcset="media-web/photos/your-support.webp" type="image/webp">
+          <img src="media-web/photos/your-support.jpg" alt="Your support" loading="lazy">
+        </picture>
+      </div>
+      <span class="moment-label">Your Support</span>
+      <p class="moment-caption">It feels so nice to always have your support. I think you've been someone that's supported me in everything I've done &mdash; whether it's university through undergrad, whether it's through grad school right now, whether it's through my business or through passion projects that I have. You've always been someone that I count on, and I thank you for that.</p>
+    </section>
+
+    <!-- Moment 20: The Avianca Incident -->
+    <section class="moment moment--story-text" data-moment="20">
+      <div class="moment-media">
+        <picture>
+          <source srcset="media-web/photos/avianca.webp" type="image/webp">
+          <img src="media-web/photos/avianca.jpg" alt="The Avianca incident" loading="lazy">
+        </picture>
+      </div>
+      <span class="moment-label">The Avianca Incident</span>
+      <div class="moment-story-card">
+        <p>Our journey to Costa Rica on Avianca Airlines was going smoothly until the final thirty minutes of our first flight, when the undeniable, SpongeBob-style wafts of pure poop started rolling into the back rows. Cheyan and I looked at each other in silent horror as the smell intensified with each passing minute. We tried breathing through our mouths, burying our faces in our shirts &mdash; nothing worked. The turbulence of the odor was worse than any air pocket.</p>
+        <p>When we finally landed, we thought the nightmare was over. But fate had other plans. For our connecting flight, we were assigned the EXACT SAME PLANE. Same seats. Same smell. Same lingering poop particles recycling through the cabin air. I'm convinced that plane needed to be decommissioned, not refueled.</p>
+        <p>To this day, "Avianca" isn't an airline to us. It's a war story. And somehow, we survived it together &mdash; which honestly might be the ultimate test of a relationship.</p>
+      </div>
+    </section>
+
+    <!-- Moment 21: FaceTime Nights -->
+    <section class="moment" data-moment="21">
+      <div class="moment-media moment-gallery">
+        <picture>
+          <source srcset="media-web/photos/facetime-1.webp" type="image/webp">
+          <img src="media-web/photos/facetime-1.jpg" alt="FaceTime nights" loading="lazy">
+        </picture>
+        <picture>
+          <source srcset="media-web/photos/facetime-2.webp" type="image/webp">
+          <img src="media-web/photos/facetime-2.jpg" alt="Sleeping on call" loading="lazy">
+        </picture>
+      </div>
+      <span class="moment-label">FaceTime Nights</span>
+      <p class="moment-caption">When we started sleeping on call together.</p>
+    </section>
+
+    <!-- Moment 22: Costa Rica -->
+    <section class="moment moment--video" data-moment="22">
+      <div class="moment-media moment-gallery">
+        <picture>
+          <source srcset="media-web/photos/costa-rica-1.webp" type="image/webp">
+          <img src="media-web/photos/costa-rica-1.jpg" alt="Costa Rica" loading="lazy">
+        </picture>
+        <picture>
+          <source srcset="media-web/photos/costa-rica-2.webp" type="image/webp">
+          <img src="media-web/photos/costa-rica-2.jpg" alt="Costa Rica bridge" loading="lazy">
+        </picture>
+        <picture>
+          <source srcset="media-web/photos/costa-rica-3.webp" type="image/webp">
+          <img src="media-web/photos/costa-rica-3.jpg" alt="Costa Rica nature" loading="lazy">
+        </picture>
+        <picture>
+          <source srcset="media-web/photos/costa-rica-4.webp" type="image/webp">
+          <img src="media-web/photos/costa-rica-4.jpg" alt="Costa Rica mountains" loading="lazy">
+        </picture>
+      </div>
+      <div class="moment-media moment-gallery">
+        <div class="moment-media--video">
+          <video data-src="media-web/videos/costa-rica-zip.mp4" poster="media-web/videos/costa-rica-zip-poster.jpg" muted playsinline preload="none"></video>
+          <button class="video-play-btn" aria-label="Play video">
+            <svg viewBox="0 0 24 24" fill="currentColor"><polygon points="5,3 19,12 5,21"/></svg>
+          </button>
+        </div>
+        <div class="moment-media--video">
+          <video data-src="media-web/videos/costa-rica-clip.mp4" poster="media-web/videos/costa-rica-clip-poster.jpg" muted playsinline preload="none"></video>
+          <button class="video-play-btn" aria-label="Play video">
+            <svg viewBox="0 0 24 24" fill="currentColor"><polygon points="5,3 19,12 5,21"/></svg>
+          </button>
         </div>
       </div>
-      <div class="year-text">
-        <span class="year-label">Year One</span>
-        <h2 class="year-caption">The Beginning</h2>
-        <p class="year-message">Where it all started. Two people, one chance encounter, and a connection that changed everything.</p>
-        <p class="year-detail">Our first hello turned into the longest conversation of my life.</p>
-      </div>
-    </div>
-  </section>
+      <span class="moment-label">Costa Rica</span>
+      <p class="moment-caption">The pretty big trip that we took to Costa Rica &mdash; I think it was like the most fun I've ever had and definitely need to do this in the future. Such a great time to spend all those days with you.</p>
+    </section>
 
-  <section class="screen screen--year" id="year-2" data-year="2">
-    <div class="year-bg"></div>
-    <div class="year-accent" aria-hidden="true"></div>
-    <div class="year-content">
-      <div class="year-photo">
-        <div class="photo-frame">
-          <div class="photo-carousel">
-            <img src="img/year-2-a.jpg" alt="Year 2" class="photo-img active" onerror="this.style.display='none'">
-            <img src="img/year-2-b.jpg" alt="Year 2" class="photo-img" onerror="this.style.display='none'">
-            <img src="img/year-2-c.jpg" alt="Year 2" class="photo-img" onerror="this.style.display='none'">
-          </div>
-          <div class="photo-dots"></div>
-          <div class="photo-placeholder-text">Year 2 Photos</div>
-        </div>
+    <!-- Moment 23: Shopping & Style -->
+    <section class="moment" data-moment="23">
+      <div class="moment-media">
+        <picture>
+          <source srcset="media-web/photos/shopping.webp" type="image/webp">
+          <img src="media-web/photos/shopping.jpg" alt="Mirror selfie shopping" loading="lazy">
+        </picture>
       </div>
-      <div class="year-text">
-        <span class="year-label">Year Two</span>
-        <h2 class="year-caption">Building Together</h2>
-        <p class="year-message">Learning each other's worlds. Growing closer with every shared laugh, every late-night conversation.</p>
-        <p class="year-detail">The year we stopped being two people and became us.</p>
-      </div>
-    </div>
-  </section>
+      <span class="moment-label">Shopping & Style</span>
+      <p class="moment-caption">Mirror selfie shopping.</p>
+    </section>
 
-  <section class="screen screen--year" id="year-3" data-year="3">
-    <div class="year-bg"></div>
-    <div class="year-accent" aria-hidden="true"></div>
-    <div class="year-content">
-      <div class="year-photo">
-        <div class="photo-frame">
-          <div class="photo-carousel">
-            <img src="img/year-3-a.jpg" alt="Year 3" class="photo-img active" onerror="this.style.display='none'">
-            <img src="img/year-3-b.jpg" alt="Year 3" class="photo-img" onerror="this.style.display='none'">
-            <img src="img/year-3-c.jpg" alt="Year 3" class="photo-img" onerror="this.style.display='none'">
-          </div>
-          <div class="photo-dots"></div>
-          <div class="photo-placeholder-text">Year 3 Photos</div>
-        </div>
+    <!-- Moment 24: Milestones -->
+    <section class="moment" data-moment="24">
+      <div class="moment-media moment-gallery">
+        <picture>
+          <source srcset="media-web/photos/milestones-1.webp" type="image/webp">
+          <img src="media-web/photos/milestones-1.jpg" alt="White coat ceremony" loading="lazy">
+        </picture>
+        <picture>
+          <source srcset="media-web/photos/milestones-2.webp" type="image/webp">
+          <img src="media-web/photos/milestones-2.jpg" alt="Her achievement" loading="lazy">
+        </picture>
       </div>
-      <div class="year-text">
-        <span class="year-label">Year Three</span>
-        <h2 class="year-caption">Our Rhythm</h2>
-        <p class="year-message">Finding our groove. The comfort of knowing someone truly sees you, and choosing each other every single day.</p>
-        <p class="year-detail">Comfortable silences that said more than words ever could.</p>
-      </div>
-    </div>
-  </section>
+      <span class="moment-label">Milestones</span>
+      <p class="moment-caption">White coat ceremony &mdash; so proud of you, Cheyan.</p>
+    </section>
 
-  <section class="screen screen--year" id="year-4" data-year="4">
-    <div class="year-bg"></div>
-    <div class="year-accent" aria-hidden="true"></div>
-    <div class="year-content">
-      <div class="year-photo">
-        <div class="photo-frame">
-          <div class="photo-carousel">
-            <img src="img/year-4-a.jpg" alt="Year 4" class="photo-img active" onerror="this.style.display='none'">
-            <img src="img/year-4-b.jpg" alt="Year 4" class="photo-img" onerror="this.style.display='none'">
-            <img src="img/year-4-c.jpg" alt="Year 4" class="photo-img" onerror="this.style.display='none'">
-          </div>
-          <div class="photo-dots"></div>
-          <div class="photo-placeholder-text">Year 4 Photos</div>
-        </div>
+    <!-- Moment 25: Road Trips -->
+    <section class="moment" data-moment="25">
+      <div class="moment-media moment-gallery">
+        <picture>
+          <source srcset="media-web/photos/road-trips-1.webp" type="image/webp">
+          <img src="media-web/photos/road-trips-1.jpg" alt="Farm cow statue" loading="lazy">
+        </picture>
+        <picture>
+          <source srcset="media-web/photos/road-trips-2.webp" type="image/webp">
+          <img src="media-web/photos/road-trips-2.jpg" alt="The Big Apple" loading="lazy">
+        </picture>
       </div>
-      <div class="year-text">
-        <span class="year-label">Year Four</span>
-        <h2 class="year-caption">Adventures</h2>
-        <p class="year-message">New cities, new memories. From Washington to Boston to Costa Rica — every trip better because you were there.</p>
-        <p class="year-detail">Passport stamps and inside jokes collected around the world.</p>
-      </div>
-    </div>
-  </section>
+      <span class="moment-label">Road Trips</span>
+      <p class="moment-caption">The Big Apple.</p>
+    </section>
 
-  <section class="screen screen--year" id="year-5" data-year="5">
-    <div class="year-bg"></div>
-    <div class="year-accent" aria-hidden="true"></div>
-    <div class="year-content">
-      <div class="year-photo">
-        <div class="photo-frame">
-          <div class="photo-carousel">
-            <img src="img/year-5-a.jpg" alt="Year 5" class="photo-img active" onerror="this.style.display='none'">
-            <img src="img/year-5-b.jpg" alt="Year 5" class="photo-img" onerror="this.style.display='none'">
-            <img src="img/year-5-c.jpg" alt="Year 5" class="photo-img" onerror="this.style.display='none'">
-          </div>
-          <div class="photo-dots"></div>
-          <div class="photo-placeholder-text">Year 5 Photos</div>
-        </div>
+    <!-- Moment 26: ArtSci -->
+    <section class="moment" data-moment="26">
+      <div class="moment-media">
+        <picture>
+          <source srcset="media-web/photos/artsci.webp" type="image/webp">
+          <img src="media-web/photos/artsci.jpg" alt="ArtSci '25 coveralls" loading="lazy">
+        </picture>
       </div>
-      <div class="year-text">
-        <span class="year-label">Year Five</span>
-        <h2 class="year-caption">Half a Decade</h2>
-        <p class="year-message">Five years. It sounds like a long time until you realize you'd do it all over again in a heartbeat.</p>
-        <p class="year-detail">Still falling, still choosing you, still just getting started.</p>
-      </div>
-    </div>
-  </section>
+      <span class="moment-label">ArtSci</span>
+      <p class="moment-caption">Matching painted ArtSci '25 coveralls, walking away together.</p>
+    </section>
 
-  <!-- ===== SCREEN 7: THE QUESTION ===== -->
-  <section class="screen screen--question" id="question">
+    <!-- Moment 27: Cute Photos -->
+    <section class="moment" data-moment="27">
+      <div class="moment-media moment-gallery">
+        <picture>
+          <source srcset="media-web/photos/cute-photos-1.webp" type="image/webp">
+          <img src="media-web/photos/cute-photos-1.jpg" alt="Kiss selfie" loading="lazy">
+        </picture>
+        <picture>
+          <source srcset="media-web/photos/cute-photos-2.webp" type="image/webp">
+          <img src="media-web/photos/cute-photos-2.jpg" alt="Mirrored kaleidoscope" loading="lazy">
+        </picture>
+      </div>
+      <span class="moment-label">Us</span>
+      <p class="moment-caption"></p>
+    </section>
+
+    <!-- Moment 28: The Photo Series -->
+    <section class="moment" data-moment="28">
+      <div class="moment-media moment-gallery moment-gallery--reaction">
+        <picture>
+          <source srcset="media-web/photos/photo-series-1.webp" type="image/webp">
+          <img src="media-web/photos/photo-series-1.jpg" alt="Took the photo" loading="lazy">
+        </picture>
+        <picture>
+          <source srcset="media-web/photos/photo-series-2.webp" type="image/webp">
+          <img src="media-web/photos/photo-series-2.jpg" alt="Shocked reaction" loading="lazy">
+        </picture>
+        <picture>
+          <source srcset="media-web/photos/photo-series-3.webp" type="image/webp">
+          <img src="media-web/photos/photo-series-3.jpg" alt="Laughing" loading="lazy">
+        </picture>
+      </div>
+      <span class="moment-label">The Photo Series</span>
+      <p class="moment-caption">Took the photo. Shocked reaction. Then laughing.</p>
+    </section>
+
+    <!-- Moment 29: Mini Me -->
+    <section class="moment" data-moment="29">
+      <div class="moment-media">
+        <picture>
+          <source srcset="media-web/photos/mini-me.webp" type="image/webp">
+          <img src="media-web/photos/mini-me.jpg" alt="Her with iPad" loading="lazy">
+        </picture>
+      </div>
+      <span class="moment-label">Mini Me</span>
+      <p class="moment-caption">Bought it when I bought it. Have you used it? Is it dead right now? We'll never know.</p>
+    </section>
+
+    <!-- Moment 30: Two Princesses -->
+    <section class="moment" data-moment="30">
+      <div class="moment-media">
+        <picture>
+          <source srcset="media-web/photos/two-princesses.webp" type="image/webp">
+          <img src="media-web/photos/two-princesses.jpg" alt="Her with the pug" loading="lazy">
+        </picture>
+      </div>
+      <span class="moment-label">Two Princesses</span>
+      <p class="moment-caption">Her and the pug.</p>
+    </section>
+
+    <!-- Moment 31: Where Everything Started -->
+    <section class="moment" data-moment="31">
+      <div class="moment-media">
+        <picture>
+          <source srcset="media-web/photos/where-everything-started.webp" type="image/webp">
+          <img src="media-web/photos/where-everything-started.jpg" alt="First FaceTime" loading="lazy">
+        </picture>
+      </div>
+      <span class="moment-label">Where Everything Started</span>
+      <p class="moment-caption">Like the House series finale &mdash; where everything started.</p>
+    </section>
+
+    <!-- Moment 32: Five Years, One Scroll -->
+    <section class="moment" data-moment="32">
+      <div class="moment-media">
+        <picture>
+          <source srcset="media-web/photos/five-years-one-scroll.webp" type="image/webp">
+          <img src="media-web/photos/five-years-one-scroll.jpg" alt="Year-by-year polaroid collage" loading="lazy">
+        </picture>
+      </div>
+      <span class="moment-label">Five Years, One Scroll</span>
+      <p class="moment-caption">A synopsis of the journey.</p>
+    </section>
+
+    <!-- Moment 33: Surprise -->
+    <section class="moment moment--surprise" data-moment="33">
+      <div class="moment-media">
+        <picture>
+          <source srcset="media-web/photos/surprise.webp" type="image/webp">
+          <img src="media-web/photos/surprise.jpg" alt="Surprise" loading="lazy">
+        </picture>
+      </div>
+      <span class="moment-label">Oh...</span>
+      <p class="moment-caption">Oh, you thought I forgot?</p>
+    </section>
+
+    <!-- Story End Sentinel -->
+    <div id="story-end" aria-hidden="true"></div>
+  </main>
+
+  <!-- ===== ZONE C: ENDGAME ===== -->
+
+  <!-- Question Screen -->
+  <section class="zone zone--question" id="question">
     <div class="question-content">
       <h2 class="question-title">So...</h2>
       <p class="question-text">Will you be with me for 5+ more years?</p>
@@ -156,8 +544,8 @@
     <canvas id="confetti-canvas"></canvas>
   </section>
 
-  <!-- ===== SCREEN 8: RSVP REVEAL ===== -->
-  <section class="screen screen--rsvp" id="rsvp">
+  <!-- RSVP Screen -->
+  <section class="zone zone--rsvp" id="rsvp">
     <div class="rsvp-card">
       <div class="rsvp-ornament top"></div>
       <p class="rsvp-prelude">Then let me take you somewhere special...</p>
@@ -203,24 +591,24 @@
       <p class="rsvp-sign">I love you.</p>
       <div class="rsvp-ornament bottom"></div>
     </div>
+    <button class="postcredits-hint" id="postcredits-hint">One more thing...</button>
   </section>
 
-  <!-- ===== NAVIGATION ARROWS ===== -->
-  <div class="nav-arrows" id="nav-arrows">
-    <button class="nav-arrow nav-arrow--prev" id="nav-prev" aria-label="Previous">&larr;</button>
-    <div class="nav-dots" id="nav-dots"></div>
-    <button class="nav-arrow nav-arrow--next" id="nav-next" aria-label="Next">&rarr;</button>
-  </div>
-
-  <!-- Progress indicator -->
-  <div class="progress-bar" id="progress-bar">
-    <div class="progress-fill" id="progress-fill"></div>
-  </div>
+  <!-- Post-Credits Screen -->
+  <section class="zone zone--postcredits" id="postcredits">
+    <div class="postcredits-content">
+      <p class="postcredits-label">Post-Credits</p>
+      <div class="postcredits-player">
+        <video id="postcredits-video" src="media-web/videos/post-credits.mp4" poster="media-web/videos/post-credits-poster.jpg" playsinline preload="none" controls></video>
+      </div>
+    </div>
+  </section>
 
   <!-- Scripts -->
   <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
   <script src="js/confetti.js"></script>
   <script src="js/evasive.js"></script>
+  <script src="js/story.js"></script>
   <script src="js/main.js"></script>
 </body>
 </html>

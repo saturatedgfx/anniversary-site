@@ -39,7 +39,7 @@ const EvasiveButton = (() => {
 
   function init() {
     btn = document.getElementById('btn-no');
-    container = document.querySelector('.screen--question');
+    container = document.querySelector('.zone--question');
     if (!btn || !container) return;
     btn.addEventListener('click', onClick);
   }
