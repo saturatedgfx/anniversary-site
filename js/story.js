@@ -12,11 +12,34 @@ const Story = (() => {
   function init(onStoryEnd) {
     onStoryEndCallback = onStoryEnd;
     storyEndFired = false;
+    detectPortraitImages();
     initMomentObserver();
     initVideoObserver();
     initStoryEndObserver();
     initVideoPlayButtons();
     initScrollProgress();
+  }
+
+  // ===== PORTRAIT DETECTION =====
+  // Adds .portrait class to single-image .moment-media containers
+  // when the image is taller than wide, so CSS can render them narrower.
+  function detectPortraitImages() {
+    document.querySelectorAll('.moment-media:not(.moment-gallery)').forEach((container) => {
+      const img = container.querySelector('img');
+      if (!img) return;
+
+      function check() {
+        if (img.naturalHeight > img.naturalWidth) {
+          container.classList.add('portrait');
+        }
+      }
+
+      if (img.complete && img.naturalWidth > 0) {
+        check();
+      } else {
+        img.addEventListener('load', check, { once: true });
+      }
+    });
   }
 
   function destroy() {

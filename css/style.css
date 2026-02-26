@@ -262,6 +262,13 @@ body.zone-b {
   position: relative;
 }
 
+/* Portrait media: narrower, centered */
+.moment-media.portrait {
+  width: 65%;
+  margin-left: auto;
+  margin-right: auto;
+}
+
 .moment-media picture {
   display: block;
   width: 100%;
@@ -271,7 +278,12 @@ body.zone-b {
   display: block;
   width: 100%;
   height: auto;
+}
+
+/* Gallery images get cover to fill cells evenly */
+.moment-gallery img {
   object-fit: cover;
+  aspect-ratio: 1 / 1;
 }
 
 /* Gallery: 2-col default */
