@@ -362,39 +362,9 @@ body.zone-b {
   background: #000;
 }
 
+/* Play buttons hidden — videos autoplay muted, tap video to pause */
 .video-play-btn {
-  position: absolute;
-  top: 50%;
-  left: 50%;
-  transform: translate(-50%, -50%);
-  width: 56px;
-  height: 56px;
-  border-radius: 50%;
-  background: rgba(212, 167, 69, 0.85);
-  border: none;
-  color: var(--bg-dark);
-  cursor: pointer;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  transition: all 0.3s ease;
-  z-index: 5;
-}
-
-.video-play-btn svg {
-  width: 20px;
-  height: 20px;
-  margin-left: 2px;
-}
-
-.video-play-btn:hover {
-  background: var(--gold-light);
-  transform: translate(-50%, -50%) scale(1.1);
-}
-
-.video-play-btn.hidden {
-  opacity: 0;
-  pointer-events: none;
+  display: none;
 }
 
 /* ===== AVIANCA STORY TEXT CARD ===== */
@@ -809,6 +779,116 @@ body.zone-b {
 @media (min-width: 601px) and (max-width: 900px) {
   .moment {
     max-width: 540px;
+  }
+}
+
+/* ===== COSTA RICA VIDEOS: FULL-WIDTH LANDSCAPE ===== */
+.moment--video .moment-gallery .moment-media--video {
+  grid-column: 1 / -1;
+}
+
+/* ===== ARTSCI REVEAL EFFECT (Moment 26) ===== */
+.moment--reveal {
+  opacity: 0;
+  transform: scale(0.3) translateY(40px);
+  filter: blur(8px);
+}
+
+.moment--reveal.in-view {
+  /* Override handled by GSAP in story.js */
+}
+
+/* ===== JUMPSCARE EFFECT (Moment 33) ===== */
+.moment--jumpscare {
+  opacity: 0;
+  transform: translateY(40px);
+  overflow: visible;
+}
+
+.moment--jumpscare.jumpscare-active {
+  opacity: 1;
+  transform: translateY(0);
+  animation: jumpscare-slam 0.15s ease-out forwards;
+}
+
+@keyframes jumpscare-slam {
+  0% {
+    transform: scale(2);
+    opacity: 1;
+  }
+  100% {
+    transform: scale(1);
+    opacity: 1;
+  }
+}
+
+.moment--jumpscare.jumpscare-gone {
+  animation: jumpscare-vanish 0.3s ease-in forwards;
+}
+
+@keyframes jumpscare-vanish {
+  0% {
+    transform: scale(1);
+    opacity: 1;
+  }
+  100% {
+    transform: scale(0.5);
+    opacity: 0;
+    height: 0;
+    margin: 0;
+    padding: 0;
+    overflow: hidden;
+  }
+}
+
+/* ===== SNAKE GAME ===== */
+#snake-canvas {
+  display: none;
+  width: 300px;
+  height: 300px;
+  border: 1px solid rgba(212, 167, 69, 0.3);
+  margin: 1.5rem auto 0;
+  border-radius: 4px;
+}
+
+#snake-canvas.active {
+  display: block;
+}
+
+.snake-message {
+  font-family: var(--font-serif);
+  font-size: 1rem;
+  font-style: italic;
+  color: var(--gold);
+  text-align: center;
+  margin-top: 1rem;
+  opacity: 0;
+  transition: opacity 0.5s ease;
+  min-height: 1.5rem;
+}
+
+.snake-message.visible {
+  opacity: 1;
+}
+
+/* YES button reappear after snake game */
+.btn-yes.snake-reveal {
+  animation: yes-pulse 1.5s ease-in-out infinite, snake-yes-appear 0.6s ease-out;
+  font-size: 1.8rem;
+  padding: 1.5rem 4rem;
+}
+
+@keyframes snake-yes-appear {
+  0% {
+    transform: scale(0);
+    opacity: 0;
+  }
+  60% {
+    transform: scale(1.2);
+  }
+  100% {
+    transform: scale(1);
+    opacity: 1;
   }
 }
 

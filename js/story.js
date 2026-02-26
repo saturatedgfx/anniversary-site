@@ -16,7 +16,7 @@ const Story = (() => {
     initMomentObserver();
     initVideoObserver();
     initStoryEndObserver();
-    initVideoPlayButtons();
+    initVideoTapToPause();
     initScrollProgress();
   }
 
@@ -58,8 +58,44 @@ const Story = (() => {
       entries.forEach((entry) => {
         if (entry.isIntersecting) {
           const el = entry.target;
+
+          // ArtSci reveal effect
+          if (el.classList.contains('moment--reveal')) {
+            el.classList.add('in-view');
+            gsap.fromTo(el,
+              { scale: 0.3, opacity: 0, filter: 'blur(8px)' },
+              {
+                scale: 1,
+                opacity: 1,
+                filter: 'blur(0px)',
+                duration: 0.8,
+                ease: 'back.out(1.4)'
+              }
+            );
+            momentObserver.unobserve(el);
+            return;
+          }
+
+          // Jumpscare effect
+          if (el.classList.contains('moment--jumpscare')) {
+            el.classList.add('jumpscare-active');
+            // After 1.5s hold, vanish
+            setTimeout(() => {
+              el.classList.remove('jumpscare-active');
+              el.classList.add('jumpscare-gone');
+              // Collapse after vanish animation
+              setTimeout(() => {
+                el.style.height = '0';
+                el.style.margin = '0';
+                el.style.overflow = 'hidden';
+              }, 300);
+            }, 1500);
+            momentObserver.unobserve(el);
+            return;
+          }
+
+          // Default fade-in
           el.classList.add('in-view');
-          // Stagger children with GSAP
           const children = el.querySelectorAll('.moment-media, .moment-label, .moment-caption, .moment-story-card');
           gsap.fromTo(children,
             { opacity: 0, y: 20 },
@@ -134,40 +170,15 @@ const Story = (() => {
     storyEndObserver.observe(sentinel);
   }
 
-  // ===== VIDEO PLAY BUTTONS =====
-  function initVideoPlayButtons() {
-    document.querySelectorAll('.video-play-btn').forEach((btn) => {
-      btn.addEventListener('click', (e) => {
-        e.stopPropagation();
-        const container = btn.closest('.moment-media--video') || btn.closest('.moment-media');
-        const video = container.querySelector('video');
-        if (!video) return;
-
-        // Lazy-load if needed
-        if (video.dataset.src && !video.src) {
-          video.src = video.dataset.src;
-          video.load();
-        }
-
+  // ===== TAP-TO-PAUSE ON VIDEOS =====
+  function initVideoTapToPause() {
+    document.querySelectorAll('.zone--story video').forEach((video) => {
+      video.addEventListener('click', () => {
         if (video.paused) {
-          video.muted = false;
           video.play().catch(() => {});
-          btn.classList.add('hidden');
         } else {
           video.pause();
-          video.muted = true;
-          btn.classList.remove('hidden');
         }
-
-        // Re-show play button when video ends or is paused
-        video.addEventListener('pause', () => {
-          btn.classList.remove('hidden');
-        }, { once: true });
-
-        video.addEventListener('ended', () => {
-          btn.classList.remove('hidden');
-          video.muted = true;
-        }, { once: true });
       });
     });
   }
