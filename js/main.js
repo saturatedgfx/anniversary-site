@@ -123,7 +123,7 @@
 
         // Stagger-animate children
         const contentSelector = {
-          question: '.question-content > *',
+          question: '.question-title, .question-text, .question-buttons',
           rsvp: '.rsvp-card > *, .postcredits-hint',
           postcredits: '.postcredits-content > *'
         };
