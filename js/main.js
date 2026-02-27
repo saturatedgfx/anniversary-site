@@ -234,6 +234,34 @@
     });
   }
 
+  // ===== FOG REVEAL (RSVP surprise items) =====
+  function initFogReveal() {
+    document.addEventListener('pointerdown', (e) => {
+      const fog = e.target.closest('.rsvp-fogged .rsvp-fog-content');
+      if (!fog) return;
+      fog.classList.add('revealing');
+      fog.setPointerCapture(e.pointerId);
+    });
+
+    document.addEventListener('pointerup', (e) => {
+      const fog = e.target.closest('.rsvp-fogged .rsvp-fog-content');
+      if (fog) fog.classList.remove('revealing');
+    });
+
+    document.addEventListener('pointercancel', (e) => {
+      const fog = e.target.closest('.rsvp-fogged .rsvp-fog-content');
+      if (fog) fog.classList.remove('revealing');
+    });
+
+    document.addEventListener('pointerleave', (e) => {
+      const fog = e.target.closest('.rsvp-fogged .rsvp-fog-content');
+      if (fog) fog.classList.remove('revealing');
+    }, true);
+  }
+
   // ===== GO =====
-  document.addEventListener('DOMContentLoaded', init);
+  document.addEventListener('DOMContentLoaded', () => {
+    init();
+    initFogReveal();
+  });
 })();
